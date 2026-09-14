@@ -1,5 +1,5 @@
 ## Hi there 👋
-
+我是广东工业大学2024级计算机学院的学生，学习计算机科学与技术专业，喜爱电子游戏与小说。
 <!--
 **WuZhongzhe/WuZhongzhe** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
