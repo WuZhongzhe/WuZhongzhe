@@ -111,4 +111,25 @@ public class Expression {
     private static int priority(char op) {
         return (op == '×' || op == '÷') ? 2 : 1;
     }
+
+    /**
+     * 规范化字符串，用来判断两道题是不是重复的：
+     * 对 + 和 × 的左右子树按字典序排好再拼接，这样 1+2 和 2+1、
+     * 3+(2+1) 和 (1+2)+3 得到的串是一样的。
+     */
+    public static String canonical(Node n) {
+        if (n.op == 0) {
+            return n.value.toString();
+        }
+        String l = canonical(n.left);
+        String r = canonical(n.right);
+        if (n.op == '+' || n.op == '×') {
+            if (l.compareTo(r) > 0) {
+                String t = l;
+                l = r;
+                r = t;
+            }
+        }
+        return n.op + "(" + l + "," + r + ")";
+    }
 }

@@ -2,6 +2,7 @@ package arithmetic;
 
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.HashSet;
 import java.util.Random;
 
 /**
@@ -15,11 +16,13 @@ public class Main {
         int r = -1;
         for (int i = 0; i < args.length; i++) {
             if ("-n".equals(args[i]) && i + 1 < args.length) {
-                n = Integer.parseInt(args[i + 1]);
-                i++;
+                n = toInt(args[++i]);
             } else if ("-r".equals(args[i]) && i + 1 < args.length) {
-                r = Integer.parseInt(args[i + 1]);
-                i++;
+                r = toInt(args[++i]);
+            } else {
+                System.out.println("无法识别的参数：" + args[i]);
+                printHelp();
+                return;
             }
         }
         if (r < 0) {
@@ -35,21 +38,32 @@ public class Main {
 
     private static void generate(int n, int r) {
         Random rnd = new Random();
-        String exercises = "";
-        String answers = "";
-        for (int i = 0; i < n; i++) {
-            Expression.Node node = null;
-            // 不合格的表达式会返回 null，重试直到拿到一个能用的
-            while (node == null) {
-                int opCount = 1 + rnd.nextInt(3);
-                node = Expression.generate(rnd, opCount, r);
+        HashSet<String> appeared = new HashSet<String>();
+        StringBuilder exercises = new StringBuilder();
+        StringBuilder answers = new StringBuilder();
+        String line = System.lineSeparator();
+        int count = 0;
+        long times = 0;
+        long maxTimes = 500L * n + 10000;
+        while (count < n && times < maxTimes) {
+            times++;
+            int opCount = 1 + rnd.nextInt(3);
+            Expression.Node node = Expression.generate(rnd, opCount, r);
+            if (node == null) {
+                continue;
             }
-            exercises = exercises + (i + 1) + ". " + Expression.toString(node) + " =" + "\r\n";
-            answers = answers + (i + 1) + ". " + node.value + "\r\n";
+            String key = Expression.canonical(node);
+            if (appeared.contains(key)) {
+                continue;
+            }
+            appeared.add(key);
+            count++;
+            exercises.append(count).append(". ").append(Expression.toString(node)).append(" =").append(line);
+            answers.append(count).append(". ").append(node.value).append(line);
         }
-        write("Exercises.txt", exercises);
-        write("Answers.txt", answers);
-        System.out.println("生成了 " + n + " 道题目，已写入 Exercises.txt 和 Answers.txt");
+        write("Exercises.txt", exercises.toString());
+        write("Answers.txt", answers.toString());
+        System.out.println("生成了 " + count + " 道题目，已写入 Exercises.txt 和 Answers.txt");
     }
 
     private static void write(String fileName, String content) {
@@ -59,6 +73,16 @@ public class Main {
             w.close();
         } catch (Exception e) {
             System.out.println("写文件 " + fileName + " 失败：" + e.getMessage());
+        }
+    }
+
+    /** 参数不是数字的话返回 -1，不让它直接抛异常 */
+    private static int toInt(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            System.out.println("参数 " + s + " 不是数字");
+            return -1;
         }
     }
 
