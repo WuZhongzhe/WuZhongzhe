@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "java-mini-agent": {
+      "transport": "http",
+      "url": "http://localhost:8080/mcp",
+      "description": "本地 Java 智能体的工具服务，提供文件读写、天气查询、计算与待办清单能力"
+    }
+  }
+}
