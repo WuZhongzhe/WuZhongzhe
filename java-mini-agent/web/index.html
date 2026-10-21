@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java 智能体 · 能说会做的办公助理</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="logo">A</span>
+            <div>
+                <h1>Mini Agent</h1>
+                <p id="modelInfo">加载中…</p>
+            </div>
+        </div>
+        <button id="newChat" class="primary">新建会话</button>
+        <div class="section-title">会话</div>
+        <ul id="conversationList" class="conversation-list"></ul>
+        <div class="section-title">可用工具</div>
+        <ul id="toolList" class="tool-list"></ul>
+    </aside>
+
+    <main class="chat">
+        <header class="chat-header">
+            <h2>智能助理对话</h2>
+            <span id="sessionTag" class="tag"></span>
+        </header>
+        <div id="messages" class="messages">
+            <div class="message bot">
+                <div class="avatar">A</div>
+                <div class="bubble">
+                    你好，我是能说会做的 Java 智能体。我可以查询天气、计算表达式、读写文件、维护待办清单。
+                    <div class="examples">
+                        <button class="chip" data-example="广州天气怎么样">广州天气怎么样</button>
+                        <button class="chip" data-example="帮我算一下 (12 + 8) * 3 / 2">算 (12+8)*3/2</button>
+                        <button class="chip" data-example="把「智能体作业第一阶段完成」写入 notes/plan.md 文件">写文件</button>
+                        <button class="chip" data-example="加个待办：周五前提交实验报告">添加待办</button>
+                        <button class="chip" data-example="看看我的待办清单">查看待办</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form id="composer" class="composer">
+            <input id="input" type="text" placeholder="输入你想让我做的事，回车发送" autocomplete="off">
+            <button type="submit" id="send">发送</button>
+        </form>
+    </main>
+</div>
+<script src="markdown.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

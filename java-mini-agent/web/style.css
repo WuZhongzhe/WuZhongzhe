@@ -1,0 +1,383 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    background: #f4f6fb;
+    color: #1f2430;
+    height: 100vh;
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+    max-width: 1180px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 10px 40px rgba(31, 36, 48, 0.08);
+}
+
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    border-right: 1px solid #e8ebf2;
+    padding: 20px 16px;
+    overflow-y: auto;
+    background: #fbfcfe;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4f7cff, #6ad0ff);
+    color: #fff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand h1 {
+    font-size: 16px;
+}
+
+.brand p {
+    font-size: 12px;
+    color: #8a91a3;
+    margin-top: 2px;
+    word-break: break-all;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: background .2s, opacity .2s;
+}
+
+button.primary {
+    width: 100%;
+    padding: 9px 12px;
+    background: #4f7cff;
+    color: #fff;
+}
+
+button.primary:hover {
+    background: #3d67e8;
+}
+
+.section-title {
+    font-size: 12px;
+    color: #8a91a3;
+    margin: 18px 0 8px;
+}
+
+.conversation-list, .tool-list {
+    list-style: none;
+    font-size: 13px;
+}
+
+.conversation-list li {
+    padding: 7px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #4a5164;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.conversation-list li:hover {
+    background: #eef2ff;
+}
+
+.conversation-list li.active {
+    background: #e5ecff;
+    color: #2c3e6b;
+    font-weight: 600;
+}
+
+.tool-list li {
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #f2f4fa;
+    margin-bottom: 6px;
+    color: #5a6275;
+}
+
+.chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.chat-header {
+    padding: 16px 22px;
+    border-bottom: 1px solid #e8ebf2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-header h2 {
+    font-size: 16px;
+}
+
+.tag {
+    font-size: 12px;
+    color: #8a91a3;
+    background: #f2f4fa;
+    padding: 3px 8px;
+    border-radius: 20px;
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 22px;
+}
+
+.message {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.message.user {
+    flex-direction: row-reverse;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #fff;
+    background: #4f7cff;
+}
+
+.message.user .avatar {
+    background: #7a8699;
+}
+
+.bubble {
+    max-width: 78%;
+    padding: 11px 14px;
+    border-radius: 12px;
+    line-height: 1.6;
+    font-size: 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: #f4f6fb;
+    border-top-left-radius: 3px;
+}
+
+.message.user .bubble {
+    background: #4f7cff;
+    color: #fff;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 3px;
+}
+
+/* Markdown 渲染后各元素的排版 */
+.bubble > * {
+    white-space: normal;
+}
+
+.bubble p {
+    margin: 0 0 8px;
+}
+
+.bubble p:last-child {
+    margin-bottom: 0;
+}
+
+.bubble h1, .bubble h2, .bubble h3, .bubble h4 {
+    margin: 12px 0 8px;
+    line-height: 1.35;
+    font-weight: 600;
+}
+
+.bubble h1 {
+    font-size: 19px;
+}
+
+.bubble h2 {
+    font-size: 17px;
+}
+
+.bubble h3 {
+    font-size: 15px;
+}
+
+.bubble h4 {
+    font-size: 14px;
+}
+
+.bubble ul, .bubble ol {
+    margin: 0 0 8px;
+    padding-left: 22px;
+}
+
+.bubble li {
+    margin-bottom: 4px;
+}
+
+.bubble blockquote {
+    margin: 8px 0;
+    padding: 6px 12px;
+    border-left: 3px solid #c3d0f7;
+    background: #f7f9ff;
+    color: #5a6275;
+}
+
+.bubble a {
+    color: #4f7cff;
+    text-decoration: none;
+}
+
+.bubble a:hover {
+    text-decoration: underline;
+}
+
+.bubble hr {
+    margin: 10px 0;
+    border: none;
+    border-top: 1px solid #e8ebf2;
+}
+
+.bubble code.md-inline {
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: #eef1f7;
+    color: #d1477a;
+    font-family: "JetBrains Mono", Consolas, Menlo, monospace;
+    font-size: 13px;
+}
+
+.bubble pre.md-code {
+    margin: 8px 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #1f2430;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.bubble pre.md-code code {
+    color: #e6e9f0;
+    font-family: "JetBrains Mono", Consolas, Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.bubble table.md-table {
+    margin: 8px 0;
+    border-collapse: collapse;
+    font-size: 13px;
+    width: 100%;
+}
+
+.bubble table.md-table th,
+.bubble table.md-table td {
+    border: 1px solid #dfe4f0;
+    padding: 6px 10px;
+    text-align: left;
+}
+
+.bubble table.md-table th {
+    background: #f4f6fb;
+    font-weight: 600;
+}
+
+.examples {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.chip {
+    background: #fff;
+    border: 1px solid #dfe4f0;
+    color: #4a5164;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 20px;
+}
+
+.chip:hover {
+    background: #eef2ff;
+    border-color: #b9c8ff;
+}
+
+.trace {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #6b7385;
+    background: #fbfcfe;
+    border: 1px dashed #dfe4f0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    white-space: pre-wrap;
+}
+
+.trace summary {
+    cursor: pointer;
+    color: #4f7cff;
+}
+
+.composer {
+    display: flex;
+    gap: 10px;
+    padding: 16px 22px;
+    border-top: 1px solid #e8ebf2;
+}
+
+.composer input {
+    flex: 1;
+    padding: 11px 14px;
+    border: 1px solid #dfe4f0;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+}
+
+.composer input:focus {
+    border-color: #4f7cff;
+}
+
+.composer button {
+    padding: 0 22px;
+    background: #4f7cff;
+    color: #fff;
+}
+
+.composer button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 760px) {
+    .sidebar {
+        display: none;
+    }
+}
